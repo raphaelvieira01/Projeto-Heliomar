@@ -14,7 +14,7 @@ type DocumentType = {
 const documentTypes: DocumentType[] = [
   { name: "Contratos", count: 12, icon: <FileSignature className="h-6 w-6 text-muted-foreground" /> },
   { name: "Procurações", count: 5, icon: <Briefcase className="h-6 w-6 text-muted-foreground" /> },
-  { name: "Contratos de Funcionários", count: 8, icon: <Users className="h-6 w-6 text-muted-foreground" /> },
+  { name: "Contrato de Funcionário", count: 8, icon: <Users className="h-6 w-6 text-muted-foreground" /> },
   { name: "Contratos de Freelancer", count: 15, icon: <FileText className="h-6 w-6 text-muted-foreground" /> },
 ];
 
