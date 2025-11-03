@@ -20,8 +20,15 @@ const documentTypes: DocumentType[] = [
 const Documents = () => {
   return (
     <div className="flex flex-col gap-6">
+      <div>
+        <h1 className="text-2xl font-semibold text-[#1A1A1A]">Documentos</h1>
+        <p className="text-[#666666] mt-2">
+          Gerencie seus documentos e modelos de forma organizada.
+        </p>
+      </div>
+
       <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-        <div className="relative w-full sm:max-w-xs">
+        <div className="relative w-full sm:max-w-md">
           <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
           <Input
             type="search"
@@ -33,13 +40,6 @@ const Documents = () => {
           <PlusCircle className="mr-2 h-4 w-4" />
           Criar Novo Documento
         </Button>
-      </div>
-
-      <div>
-        <h1 className="text-2xl font-semibold text-[#1A1A1A]">Documentos</h1>
-        <p className="text-[#666666] mt-2">
-          Gerencie seus documentos e modelos de forma organizada.
-        </p>
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
