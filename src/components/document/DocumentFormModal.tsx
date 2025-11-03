@@ -19,6 +19,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { useState } from "react";
+import { ContractPreviewModal } from "./ContractPreviewModal";
 
 const formSchema = z.object({
   fullName: z.string().min(1, "Nome completo é obrigatório."),
@@ -42,6 +44,9 @@ interface DocumentFormModalProps {
 }
 
 export const DocumentFormModal = ({ isOpen, onClose, documentType }: DocumentFormModalProps) => {
+  const [isPreviewOpen, setIsPreviewOpen] = useState(false);
+  const [formData, setFormData] = useState<z.infer<typeof formSchema> | null>(null);
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -61,191 +66,204 @@ export const DocumentFormModal = ({ isOpen, onClose, documentType }: DocumentFor
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-    onClose();
+    setFormData(values);
+    setIsPreviewOpen(true);
   }
 
+  const handleDownload = () => {
+    // Placeholder for download logic
+    alert("A funcionalidade de download será implementada em breve!");
+  };
+
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-3xl">
-        <DialogHeader>
-          <DialogTitle>Gerar {documentType}</DialogTitle>
-          <DialogDescription>
-            Preencha as informações abaixo para gerar o documento.
-          </DialogDescription>
-        </DialogHeader>
-        
-        <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-            <div className="max-h-[60vh] overflow-y-auto p-1 pr-4">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <FormField
-                  control={form.control}
-                  name="fullName"
-                  render={({ field }) => (
-                    <FormItem className="md:col-span-2">
-                      <FormLabel>Nome Completo</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Digite o nome completo" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="birthDate"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Data de Nascimento</FormLabel>
-                      <FormControl>
-                        <Input placeholder="DD/MM/AAAA" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="maritalStatus"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Estado Civil</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Solteiro(a), Casado(a)..." {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="occupation"
-                  render={({ field }) => (
-                    <FormItem className="md:col-span-2">
-                      <FormLabel>Ocupação</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Digite a ocupação" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cpf"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CPF</FormLabel>
-                      <FormControl>
-                        <Input placeholder="000.000.000-00" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="rg"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>RG</FormLabel>
-                      <FormControl>
-                        <Input placeholder="00.000.000-0" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="cep"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>CEP</FormLabel>
-                      <FormControl>
-                        <Input placeholder="00000-000" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="street"
-                  render={({ field }) => (
-                    <FormItem className="md:col-span-2">
-                      <FormLabel>Rua</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Nome da rua" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="number"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Número</FormLabel>
-                      <FormControl>
-                        <Input placeholder="123" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="neighborhood"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Bairro</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Nome do bairro" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="city"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Cidade</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Nome da cidade" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="state"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Estado</FormLabel>
-                      <FormControl>
-                        <Input placeholder="UF" {...field} />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
+    <>
+      <Dialog open={isOpen} onOpenChange={onClose}>
+        <DialogContent className="sm:max-w-3xl">
+          <DialogHeader>
+            <DialogTitle>Gerar {documentType}</DialogTitle>
+            <DialogDescription>
+              Preencha as informações abaixo para gerar o documento.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+              <div className="max-h-[60vh] overflow-y-auto p-1 pr-4">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <FormField
+                    control={form.control}
+                    name="fullName"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>Nome Completo</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Digite o nome completo" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="birthDate"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Data de Nascimento</FormLabel>
+                        <FormControl>
+                          <Input placeholder="DD/MM/AAAA" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="maritalStatus"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Estado Civil</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Solteiro(a), Casado(a)..." {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="occupation"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>Ocupação</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Digite a ocupação" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="cpf"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>CPF</FormLabel>
+                        <FormControl>
+                          <Input placeholder="000.000.000-00" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="rg"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>RG</FormLabel>
+                        <FormControl>
+                          <Input placeholder="00.000.000-0" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="cep"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>CEP</FormLabel>
+                        <FormControl>
+                          <Input placeholder="00000-000" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="street"
+                    render={({ field }) => (
+                      <FormItem className="md:col-span-2">
+                        <FormLabel>Rua</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Nome da rua" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="number"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Número</FormLabel>
+                        <FormControl>
+                          <Input placeholder="123" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="neighborhood"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Bairro</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Nome do bairro" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="city"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Cidade</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Nome da cidade" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="state"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel>Estado</FormLabel>
+                        <FormControl>
+                          <Input placeholder="UF" {...field} />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
               </div>
-            </div>
-            <DialogFooter>
-              <Button variant="outline" type="button" onClick={onClose}>
-                Cancelar
-              </Button>
-              <Button type="submit">Gerar Documento</Button>
-            </DialogFooter>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+              <DialogFooter>
+                <Button variant="outline" type="button" onClick={onClose}>
+                  Cancelar
+                </Button>
+                <Button type="submit">Gerar Documento</Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+      <ContractPreviewModal
+        isOpen={isPreviewOpen}
+        onClose={() => setIsPreviewOpen(false)}
+        onDownload={handleDownload}
+        contractData={formData}
+      />
+    </>
   );
 };
