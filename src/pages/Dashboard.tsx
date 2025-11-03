@@ -4,13 +4,13 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { FileSignature, Users, FileText, Percent } from "lucide-react";
+import { FileSignature, Users, Percent } from "lucide-react";
 
 const Dashboard = () => {
   return (
     <div>
       <h1 className="text-2xl font-semibold text-[#1A1A1A] mb-4">Dashboard</h1>
-      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-4">
+      <div className="grid gap-4 md:grid-cols-2 md:gap-8 lg:grid-cols-3">
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-sm font-medium text-[#666666]">
@@ -37,18 +37,6 @@ const Dashboard = () => {
             <p className="text-xs text-muted-foreground">
               +10 since last week
             </p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium text-[#666666]">
-              Templates Disponíveis
-            </CardTitle>
-            <FileText className="h-4 w-4 text-muted-foreground" />
-          </CardHeader>
-          <CardContent>
-            <div className="text-2xl font-bold text-[#333333]">42</div>
-            <p className="text-xs text-muted-foreground">+2 added this month</p>
           </CardContent>
         </Card>
         <Card>

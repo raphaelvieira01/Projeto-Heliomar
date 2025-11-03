@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { BarChart, FileSignature, FileText, Settings, Users, Briefcase } from "lucide-react";
+import { BarChart, FileSignature, Settings, Users, Briefcase } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const CustomNavLink = ({ to, children }: { to: string; children: React.ReactNode }) => (
@@ -35,10 +35,6 @@ export function Sidebar() {
             <CustomNavLink to="/clients">
               <Users className="h-4 w-4" />
               Clientes
-            </CustomNavLink>
-            <CustomNavLink to="/templates">
-              <FileText className="h-4 w-4" />
-              Modelos
             </CustomNavLink>
             <CustomNavLink to="/documents">
               <FileSignature className="h-4 w-4" />

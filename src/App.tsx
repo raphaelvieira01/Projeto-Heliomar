@@ -8,7 +8,6 @@ import NotFound from "./pages/NotFound";
 import { DashboardLayout } from "./components/layout/DashboardLayout.tsx";
 import Dashboard from "./pages/Dashboard";
 import Clients from "./pages/Clients";
-import Templates from "./pages/Templates";
 import Documents from "./pages/Documents";
 import Settings from "./pages/Settings";
 
@@ -25,7 +24,6 @@ const App = () => (
           <Route element={<DashboardLayout />}>
             <Route path="dashboard" element={<Dashboard />} />
             <Route path="clients" element={<Clients />} />
-            <Route path="templates" element={<Templates />} />
             <Route path="documents" element={<Documents />} />
             <Route path="settings" element={<Settings />} />
           </Route>
