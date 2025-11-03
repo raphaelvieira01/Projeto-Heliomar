@@ -40,9 +40,9 @@ export function Sidebar() {
               <FileText className="h-4 w-4" />
               Modelos
             </CustomNavLink>
-            <CustomNavLink to="/contracts">
+            <CustomNavLink to="/documents">
               <FileSignature className="h-4 w-4" />
-              Contratos
+              Documentos
             </CustomNavLink>
             <CustomNavLink to="/settings">
               <Settings className="h-4 w-4" />
