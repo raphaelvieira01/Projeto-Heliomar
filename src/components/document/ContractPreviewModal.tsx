@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
+import { ContractTemplate } from "./ContractTemplate";
 
 // A "any" type is used here temporarily for the form data.
 // We will define a more specific type in the next steps.
@@ -30,11 +31,8 @@ export const ContractPreviewModal = ({ isOpen, onClose, onDownload, contractData
           </DialogDescription>
         </DialogHeader>
         
-        <ScrollArea className="h-[calc(90vh-180px)] border rounded-md p-4">
-          <p className="font-bold">Dados do Formulário:</p>
-          <pre className="mt-4 text-xs whitespace-pre-wrap bg-muted p-4 rounded-md">
-            {JSON.stringify(contractData, null, 2)}
-          </pre>
+        <ScrollArea className="h-[calc(90vh-180px)] border rounded-md">
+          {contractData && <ContractTemplate data={contractData} />}
         </ScrollArea>
 
         <DialogFooter>
