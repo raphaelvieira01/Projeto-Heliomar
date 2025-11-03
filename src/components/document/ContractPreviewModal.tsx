@@ -16,11 +16,14 @@ import { ContractTemplate } from "./ContractTemplate";
 interface ContractPreviewModalProps {
   isOpen: boolean;
   onClose: () => void;
-  onDownload: () => void;
   contractData: any;
 }
 
-export const ContractPreviewModal = ({ isOpen, onClose, onDownload, contractData }: ContractPreviewModalProps) => {
+export const ContractPreviewModal = ({ isOpen, onClose, contractData }: ContractPreviewModalProps) => {
+  const handlePrint = () => {
+    window.print();
+  };
+
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent className="sm:max-w-4xl h-[90vh]">
@@ -32,15 +35,17 @@ export const ContractPreviewModal = ({ isOpen, onClose, onDownload, contractData
         </DialogHeader>
         
         <ScrollArea className="h-[calc(90vh-180px)] border rounded-md">
-          {contractData && <ContractTemplate data={contractData} />}
+          <div id="printable-contract">
+            {contractData && <ContractTemplate data={contractData} />}
+          </div>
         </ScrollArea>
 
         <DialogFooter>
           <Button variant="outline" onClick={onClose}>
             Fechar
           </Button>
-          <Button onClick={onDownload}>
-            Baixar Documento
+          <Button onClick={handlePrint}>
+            Imprimir
           </Button>
         </DialogFooter>
       </DialogContent>

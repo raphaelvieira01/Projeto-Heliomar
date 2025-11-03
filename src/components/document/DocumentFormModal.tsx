@@ -70,11 +70,6 @@ export const DocumentFormModal = ({ isOpen, onClose, documentType }: DocumentFor
     setIsPreviewOpen(true);
   }
 
-  const handleDownload = () => {
-    // Placeholder for download logic
-    alert("A funcionalidade de download será implementada em breve!");
-  };
-
   return (
     <>
       <Dialog open={isOpen} onOpenChange={onClose}>
@@ -261,7 +256,6 @@ export const DocumentFormModal = ({ isOpen, onClose, documentType }: DocumentFor
       <ContractPreviewModal
         isOpen={isPreviewOpen}
         onClose={() => setIsPreviewOpen(false)}
-        onDownload={handleDownload}
         contractData={formData}
       />
     </>
