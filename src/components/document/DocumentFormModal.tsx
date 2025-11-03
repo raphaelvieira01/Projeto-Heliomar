@@ -27,6 +27,7 @@ const formSchema = z.object({
   occupation: z.string().min(1, "Ocupação é obrigatória."),
   cpf: z.string().min(11, "CPF inválido.").max(14, "CPF inválido."),
   rg: z.string().min(1, "RG é obrigatório."),
+  cep: z.string().min(8, "CEP inválido.").max(9, "CEP inválido."),
   street: z.string().min(1, "Rua é obrigatória."),
   number: z.string().min(1, "Número é obrigatório."),
   neighborhood: z.string().min(1, "Bairro é obrigatório."),
@@ -50,6 +51,7 @@ export const DocumentFormModal = ({ isOpen, onClose, documentType }: DocumentFor
       occupation: "",
       cpf: "",
       rg: "",
+      cep: "",
       street: "",
       number: "",
       neighborhood: "",
@@ -150,6 +152,19 @@ export const DocumentFormModal = ({ isOpen, onClose, documentType }: DocumentFor
                       <FormLabel>RG</FormLabel>
                       <FormControl>
                         <Input placeholder="00.000.000-0" {...field} />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
+                />
+                <FormField
+                  control={form.control}
+                  name="cep"
+                  render={({ field }) => (
+                    <FormItem>
+                      <FormLabel>CEP</FormLabel>
+                      <FormControl>
+                        <Input placeholder="00000-000" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
