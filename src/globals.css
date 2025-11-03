@@ -50,18 +50,20 @@
 }
 
 @media print {
+  /* Hide everything on the page by default */
   body * {
     visibility: hidden;
   }
+  /* Make only the contract and its contents visible */
   #printable-contract, #printable-contract * {
     visibility: visible;
   }
+  /* Position the contract at the top of the page and let it expand to its full height */
   #printable-contract {
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
-    height: 100%;
-    padding: 20px;
+    height: auto;
   }
 }
