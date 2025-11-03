@@ -2,7 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { FileText, Briefcase, Users, Search, PlusCircle, FileSignature } from "lucide-react";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
+import { DocumentFormModal } from "@/components/document/DocumentFormModal";
 
 type DocumentType = {
   name: string;
@@ -18,6 +19,14 @@ const documentTypes: DocumentType[] = [
 ];
 
 const Documents = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDocType, setSelectedDocType] = useState("");
+
+  const handleCardClick = (docTypeName: string) => {
+    setSelectedDocType(docTypeName);
+    setIsModalOpen(true);
+  };
+
   return (
     <div className="flex flex-col gap-6">
       <div>
@@ -44,7 +53,11 @@ const Documents = () => {
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
         {documentTypes.map((docType) => (
-          <Card key={docType.name} className="hover:bg-accent hover:cursor-pointer transition-colors">
+          <Card 
+            key={docType.name} 
+            className="hover:bg-accent hover:cursor-pointer transition-colors"
+            onClick={() => handleCardClick(docType.name)}
+          >
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
               <CardTitle className="text-sm font-medium text-[#666666]">
                 {docType.name}
@@ -58,6 +71,12 @@ const Documents = () => {
           </Card>
         ))}
       </div>
+
+      <DocumentFormModal 
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        documentType={selectedDocType}
+      />
     </div>
   );
 };
